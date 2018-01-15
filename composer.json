@@ -1,0 +1,16 @@
+{
+  "name": "dominoman/ekibot",
+  "description": "description_text",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Dominoman",
+      "email": "olaca@freemail.hu"
+    }
+  ],
+  "require": {
+    "slim/slim": "3.9.2",
+    "monolog/monolog": "1.23.0"
+  }
+}
