@@ -8,7 +8,6 @@
 
 namespace facebook;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -41,20 +40,20 @@ class SendApi {
      * @return Response
      */
     public function sendMessage(string $recipient_id, string $message): Response {
-        $client = new Client();
-        $data = [
-            "recipient" => [
-                "id" => $recipient_id,
-            ],
-            "message" => [
-                "text" => $message,
-            ]
-        ];
-
-        $result = $client->request('POST', $this->url, [
-            'query' => ['access_token' => $this->pageToken],
-            'json' => $data
-        ]);
-        return $result;
+//        $client = new Client();
+//        $data = [
+//            "recipient" => [
+//                "id" => $recipient_id,
+//            ],
+//            "message" => [
+//                "text" => $message,
+//            ]
+//        ];
+//
+//        $result = $client->request('POST', $this->url, [
+//            'query' => ['access_token' => $this->pageToken],
+//            'json' => $data
+//        ]);
+//        return $result;
     }
 }
