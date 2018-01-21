@@ -13,8 +13,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * Dummy get
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
-    $this->logger->addDebug("Get req!");
-    $this->sendApi->sendMessage("1673880772670232", "válasz");
+    //$this->logger->addDebug("Get req!");
     return $response->getBody()->write("Hello get");
 });
 
@@ -51,7 +50,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $this->logger->addDebug($senderID);
                     $this->logger->addDebug($recipient_id);
                     $this->logger->addDebug($message_text);
-                    $this->sendApi->sendMessage($recipient_id, "válasz");
+                    $this->sendApi->sendMessage($senderID, "válasz");
                 }
             }
         }
