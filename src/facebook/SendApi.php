@@ -38,23 +38,40 @@ class SendApi {
     /**
      * @param string $recipient_id
      * @param string $message
+     * @param string $imgurl
      * @return Response
      */
-    public function sendMessage(string $recipient_id, string $message) {
+    public function sendMessage(string $recipient_id, string $message = null, string $imgurl = null) {
         $client = new Client();
         $data = [
+            "messaging_type" => "RESPONSE",
             "recipient" => [
                 "id" => $recipient_id,
             ],
-            "message" => [
-                "text" => $message,
-            ]
+            "message" => [],
         ];
+        if ($message !== null) {
+            $data["message"][] = [
+                "attachment" => [
+                    "type" => "image",
+                    "payload" => [
+                        "url" => $imgurl,
+                        "is_reusable" => "true"
+                    ]
+                ]
+            ];
+        }
+
+        if ($imgurl !== null) {
+            $data["message"][] = [
+                "text" => $message,
+            ];
+        }
 
         $result = $client->request('POST', $this->url, [
             'query' => ['access_token' => $this->pageToken],
             'json' => $data
         ]);
-//        return $result;
+        return $result;
     }
 }
