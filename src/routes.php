@@ -13,7 +13,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * Dummy get
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
-    //$this->logger->addDebug("Get req!");
     return $response->getBody()->write("Hello get");
 });
 
@@ -47,10 +46,14 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $senderID = $messaging_event["sender"]["id"];
                     $recipient_id = $messaging_event["recipient"]["id"];
                     $message_text = $messaging_event["message"]["text"];
-                    $this->logger->addDebug($senderID);
-                    $this->logger->addDebug($recipient_id);
-                    $this->logger->addDebug($message_text);
-                    $this->sendApi->sendMessage($senderID, "válasz");
+                    $imgurl = $_SERVER["SERVER_NAME"] . "/images/a_kovetkezo_is_uganyilyen_rossz_lesz_ha_nem_rosszabb.PNG";
+                    $this->logger->addDebug($imgurl);
+                    $this->logger->addDebug("$senderID $recipient_id $message_text");
+                    /** @var \GuzzleHttp\Psr7\Response $result */
+                    $result = $this->sendApi->sendMessage($senderID, "válasz");
+                    if ($result->getStatusCode() != 200) {
+                        $this->logger->addDebug("Error:" . $result->getBody());
+                    }
                 }
             }
         }
