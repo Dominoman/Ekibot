@@ -41,32 +41,17 @@ class SendApi {
      * @param string $imgurl
      * @return Response
      */
-    public function sendMessage(string $recipient_id, string $message = null, string $imgurl = null) {
+    public function sendMessage(string $recipient_id, string $message) {
         $client = new Client();
         $data = [
             "messaging_type" => "RESPONSE",
             "recipient" => [
                 "id" => $recipient_id,
             ],
-            "message" => [],
-        ];
-        if ($message !== null) {
-            $data["message"][] = [
+            "message" => [
                 "text" => $message,
-            ];
-        }
-
-        if ($imgurl !== null) {
-            $data["message"][] = [
-                "attachment" => [
-                    "type" => "image",
-                    "payload" => [
-                        "url" => $imgurl,
-                        "is_reusable" => "true"
-                    ]
-                ]
-            ];
-        }
+            ],
+        ];
 
         $result = $client->request('POST', $this->url, [
             'query' => ['access_token' => $this->pageToken],
