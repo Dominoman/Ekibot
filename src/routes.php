@@ -46,11 +46,10 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $senderID = $messaging_event["sender"]["id"];
                     $recipient_id = $messaging_event["recipient"]["id"];
                     $message_text = $messaging_event["message"]["text"];
-                    $imgurl = $_SERVER["SERVER_NAME"] . "/images/a_kovetkezo_is_uganyilyen_rossz_lesz_ha_nem_rosszabb.PNG";
-                    $this->logger->addDebug($imgurl);
+                    $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/a_kovetkezo_is_uganyilyen_rossz_lesz_ha_nem_rosszabb.PNG";
                     $this->logger->addDebug("$senderID $recipient_id $message_text");
                     /** @var \GuzzleHttp\Psr7\Response $result */
-                    $result = $this->sendApi->sendMessage($senderID, "válasz");
+                    $result = $this->sendApi->sendMessage($senderID, null, $imgurl);
                     if ($result->getStatusCode() != 200) {
                         $this->logger->addDebug("Error:" . $result->getBody());
                     }
