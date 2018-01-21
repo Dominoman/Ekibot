@@ -14,7 +14,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
     $this->logger->addDebug("Get req!");
-    $this->sendApi->sendMessage("2001701669859955", "válasz");
+    $this->sendApi->sendMessage("1673880772670232", "válasz");
     return $response->getBody()->write("Hello get");
 });
 
