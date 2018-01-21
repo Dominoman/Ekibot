@@ -64,10 +64,22 @@ class SendApi {
             ];
         }
 
-        $result = $client->request('POST', $this->url, [
+        $result = $client->request('POST', $this->url . "me/messages", [
             'query' => ['access_token' => $this->pageToken],
             'json' => $data
         ]);
         return $result;
+    }
+
+    /**
+     * @param string $recipient_id
+     * @return array
+     */
+    public function getID(string $recipient_id) {
+        $client = new Client();
+        $result = $client->request('GET', $this->url . $recipient_id, [
+            'query' => ["fields" => "first_name"]
+        ]);
+        return json_decode($result->getBody(), true);
     }
 }

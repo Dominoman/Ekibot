@@ -16,6 +16,6 @@ return [
         ],
         'verifyToken' => 'ekitoken',
         'pageToken' => getenv('pageToken'),
-        'sendApi' => 'https://graph.facebook.com/v2.6/me/messages',
+        'sendApi' => 'https://graph.facebook.com/v2.6/',
     ]
 ];
