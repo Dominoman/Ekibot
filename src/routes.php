@@ -50,7 +50,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $this->logger->addDebug($senderID);
                     $this->logger->addDebug($recipient_id);
                     $this->logger->addDebug($message_text);
-                    $this->sendApi->sendMessage($recipient_id, "válasz");
+                    //$this->sendApi->sendMessage($recipient_id, "válasz");
                 }
             }
         }
