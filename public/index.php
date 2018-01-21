@@ -18,4 +18,9 @@ require __DIR__.'/../src/dependencies.php';
 
 require __DIR__.'/../src/routes.php';
 
-$app->run();
+try {
+    $app->run();
+} catch (Exception $e) {
+    error_log($e->getMessage());
+    error_log($e->getTraceAsString());
+}
