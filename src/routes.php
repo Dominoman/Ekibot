@@ -43,7 +43,14 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
     if ($data['object'] == 'page') {
         foreach ($data['entry'] as $entry) {
             foreach ($entry['messaging'] as $messaging_event) {
-                $this->logger->addDebug(print_r($messaging_event, true));
+                if (isset($messaging_event['message'])) {
+                    $senderID = $messaging_event["sender"]["id"];
+                    $recipient_id = $messaging_event["recipient"]["id"];
+                    $message_text = $messaging_event["message"]["text"];
+                    $this->logger->addDebug($senderID);
+                    $this->logger->addDebug($recipient_id);
+                    $this->logger->addDebug($message_text);
+                }
             }
         }
     }
