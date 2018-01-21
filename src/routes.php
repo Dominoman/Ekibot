@@ -12,10 +12,11 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 /**
  * Dummy get
  */
-$app->get('/',function (Request $request,Response $response,array$args){
-    $this->logger->addDebug("Hello debug!");
-    return $response->getBody()->write("Hello");
+$app->get('/', function (Request $request, Response $response, array $args) {
+    $this->logger->addDebug("Get req!");
+    return $response->getBody()->write("Hello get");
 });
+
 
 /**
  * Subscription
