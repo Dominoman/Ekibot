@@ -39,5 +39,5 @@ $app->get('/ekibot', function (Request $request, Response $response, array $args
 $app->post('/ekibot', function (Request $request, Response $response, array $args) {
     $json = $request->getBody();
     $data = json_decode($json, true);
-    $this->logger->addDebug(print_r($data, true));
+    $this->logger->addDebug(print_r($json, true));
 });
