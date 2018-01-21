@@ -51,10 +51,10 @@ class SendApi {
             ]
         ];
 
-//        $result = $client->request('POST', $this->url, [
-//            'query' => ['access_token' => $this->pageToken],
-//            'json' => $data
-//        ]);
+        $result = $client->request('POST', $this->url, [
+            'query' => ['access_token' => $this->pageToken],
+            'json' => $data
+        ]);
 //        return $result;
     }
 }
