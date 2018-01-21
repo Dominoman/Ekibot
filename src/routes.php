@@ -39,5 +39,12 @@ $app->get('/ekibot', function (Request $request, Response $response, array $args
 $app->post('/ekibot', function (Request $request, Response $response, array $args) {
     $json = $request->getBody();
     $data = json_decode($json, true);
-    $this->logger->addDebug(print_r($json, true));
+
+    if ($data['object'] == 'page') {
+        foreach ($data['entry'] as $entry) {
+            foreach ($entry['messaging'] as $messaging_event) {
+                $this->logger->addDebug(print_r($messaging_event, true));
+            }
+        }
+    }
 });
