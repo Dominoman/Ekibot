@@ -52,6 +52,12 @@ class SendApi {
         ];
         if ($message !== null) {
             $data["message"][] = [
+                "text" => $message,
+            ];
+        }
+
+        if ($imgurl !== null) {
+            $data["message"][] = [
                 "attachment" => [
                     "type" => "image",
                     "payload" => [
@@ -59,12 +65,6 @@ class SendApi {
                         "is_reusable" => "true"
                     ]
                 ]
-            ];
-        }
-
-        if ($imgurl !== null) {
-            $data["message"][] = [
-                "text" => $message,
             ];
         }
 
