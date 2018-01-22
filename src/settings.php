@@ -17,5 +17,6 @@ return [
         'verifyToken' => 'ekitoken',
         'pageToken' => getenv('pageToken'),
         'sendApi' => 'https://graph.facebook.com/v2.6/',
+        'data' => 'data/data.json',
     ]
 ];

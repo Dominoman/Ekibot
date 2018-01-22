@@ -78,7 +78,7 @@ class SendApi {
     public function getID(string $recipient_id) {
         $client = new Client();
         $result = $client->request('GET', $this->url . $recipient_id, [
-            'query' => ["fields" => "first_name",
+            'query' => ["fields" => "first_name,last_name,profile_pic,gender",
                 'access_token' => $this->pageToken]
         ]);
         return json_decode($result->getBody(), true);

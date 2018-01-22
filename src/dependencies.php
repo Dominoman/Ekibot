@@ -22,3 +22,9 @@ $container['sendApi'] = function (\Slim\Container $c) {
     $sendApi = new \facebook\SendApi($apiURL, $pageToken);
     return $sendApi;
 };
+
+$container['ai'] = function (\Slim\Container $c) {
+    $datafile = $c->get('settings')['data'];
+    $ai = new \facebook\StupidAI(__DIR__ . '/../' . $datafile);
+    return $ai;
+};
