@@ -13,7 +13,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * Dummy get
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
-    return $response->getBody()->write("Hello get");
+    return $response->getBody()->write("Hello Robot");
 });
 
 /**
@@ -59,7 +59,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     //$uID = $this->sendApi->getID($senderID);
                     //$this->logger->addDebug(print_r($uID, true));
 
-                    $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/" . $this->ai->parse("");
+                    $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/" . $this->ai->parse($message_text);
 
                     /** @var \GuzzleHttp\Psr7\Response $result */
                     $result = $this->sendApi->sendMessage($senderID, null, $imgurl);

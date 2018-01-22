@@ -8,6 +8,9 @@
 
 namespace facebook;
 
+use Ds\Set;
+
+
 /**
  * Class StupidAI
  * @package facebook
@@ -24,7 +27,24 @@ class StupidAI {
     }
 
     public function parse(string $input): string {
-        $i = rand(0, count($this->data));
-        return $this->data[$i]->filename;
+        $wordSet = new Set();
+        $s = explode(" ", $input);
+        foreach ($s as $word) {
+            if (strlen($word) > 2) {
+                $wordSet->add($word);
+            }
+        }
+        $resultSet = new Set();
+        foreach ($wordSet as $word) {
+            foreach ($this->data as $line) {
+                if (strpos($line->text, $word) !== false) {
+                    $resultSet->add($line->filename);
+                }
+            }
+        }
+        if ($resultSet->count() == 0) {
+            return $this->data[rand(0, count($this->data))]->filename;
+        }
+        return $resultSet->get(rand(0, $resultSet->count() - 1));
     }
 }
