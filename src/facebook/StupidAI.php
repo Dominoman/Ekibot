@@ -27,18 +27,15 @@ class StupidAI {
     }
 
     public function parse(string $input): string {
-        $wordSet = new Set();
-        $s = explode(" ", $input);
-        foreach ($s as $word) {
-            if (strlen($word) > 2) {
-                $wordSet->add($word);
-            }
-        }
+        $words = str_word_count($input, 2, "öüóőúéáűíÖÜÓŐÚÉÁŰÍ");
         $resultSet = new Set();
-        foreach ($wordSet as $word) {
-            foreach ($this->data as $line) {
-                if (strpos($line->text, $word) !== false) {
-                    $resultSet->add($line->filename);
+        foreach ($words as $word) {
+            if (strlen($word) > 2) {
+                $word = strtolower($word);
+                foreach ($this->data as $line) {
+                    if (strpos(strtolower($line->text), $word) !== false) {
+                        $resultSet->add($line->filename);
+                    }
                 }
             }
         }
