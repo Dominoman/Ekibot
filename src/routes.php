@@ -16,6 +16,14 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     return $response->getBody()->write("Hello get");
 });
 
+/**
+ * Privacy
+ */
+$app->get('/privacy', function (Request $request, Response $response, array $args) {
+    $privacy = $this->get('settings')['privacy'];
+    return $response->getBody()->write(nl2br(file_get_contents(__DIR__ . '/../' . $privacy)));
+});
+
 
 /**
  * Subscription
