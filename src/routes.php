@@ -56,12 +56,15 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $message_text = $messaging_event["message"]["text"];
                     $this->logger->addDebug("$senderID $recipient_id $message_text");
 
-                    //$uID = $this->sendApi->getID($senderID);
-                    $this->logger->addDebug($senderID);
+                    /** @var \GuzzleHttp\Psr7\Response $result */
+                    $result = $this->sendApi->sendMessage($senderID, "Erről ne tudok, de:", null);
+                    if ($result->getStatusCode() != 200) {
+                        $this->logger->addDebug("Error:" . $result->getStatusCode() . " " . $result->getBody());
+                    }
 
                     $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/" . $this->ai->parse($message_text);
                     $this->logger->addDebug($imgurl);
-                    /** @var \GuzzleHttp\Psr7\Response $result */
+
                     $result = $this->sendApi->sendMessage($senderID, null, $imgurl);
                     if ($result->getStatusCode() != 200) {
                         $this->logger->addDebug("Error:" . $result->getStatusCode() . " " . $result->getBody());

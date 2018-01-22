@@ -48,7 +48,6 @@ class SendApi {
             "recipient" => [
                 "id" => $recipient_id,
             ],
-            "message" => [],
         ];
         if ($message !== null) {
             $data["message"]["text"] = $message;
@@ -63,6 +62,8 @@ class SendApi {
                 ]
             ];
         }
+
+        echo json_encode($data);
 
         $result = $client->request('POST', $this->url . "me/messages", [
             'query' => ['access_token' => $this->pageToken],
