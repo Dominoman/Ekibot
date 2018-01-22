@@ -62,7 +62,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/" . $this->ai->parse($message_text);
 
                     /** @var \GuzzleHttp\Psr7\Response $result */
-                    $result = $this->sendApi->sendMessage($senderID, null, $imgurl);
+                    $result = $this->sendApi->sendMessage($senderID, "Most ezt így nem tudom, de", $imgurl);
                     if ($result->getStatusCode() != 200) {
                         $this->logger->addDebug("Error:" . $result->getStatusCode() . " " . $result->getBody());
                     }
