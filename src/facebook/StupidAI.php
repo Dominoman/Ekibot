@@ -33,7 +33,7 @@ class StupidAI {
             if (strlen($word) > 2) {
                 $word = strtolower($word);
                 foreach ($this->data as $line) {
-                    if (strpos(strtolower($line->text), $word) !== false) {
+                    if (strpos(strtolower($line->text . $line->author), $word) !== false) {
                         $resultSet->add($line->filename);
                     }
                 }
