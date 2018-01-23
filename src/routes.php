@@ -57,7 +57,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $this->logger->addDebug("$senderID $recipient_id $message_text");
 
                     /** @var \GuzzleHttp\Psr7\Response $result */
-                    $result = $this->sendApi->sendMessage($senderID, "Erről ne tudok, de:", null);
+                    $result = $this->sendApi->sendMessage($senderID, "Erről nem tudok, de:", null);
                     if ($result->getStatusCode() != 200) {
                         $this->logger->addDebug("Error:" . $result->getStatusCode() . " " . $result->getBody());
                     }
