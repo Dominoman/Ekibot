@@ -28,3 +28,16 @@ $container['ai'] = function (\Slim\Container $c) {
     $ai = new \facebook\StupidAI(__DIR__ . '/../' . $datafile);
     return $ai;
 };
+
+$container['db'] = function (\Slim\Container $c) {
+    $dbpath = parse_url($c->get('settings')['databaseUrl']);
+    $db = new \Medoo\Medoo(array(
+        'database_type' => $dbpath['scheme'],
+        'database_name' => ltrim($dbpath['path'], '/'),
+        'server' => $dbpath['host'],
+        'username' => $dbpath['user'],
+        'password' => $dbpath['pass'],
+        'port' => $dbpath['port']
+    ));
+    return $db;
+};

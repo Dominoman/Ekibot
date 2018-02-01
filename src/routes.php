@@ -13,6 +13,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * Dummy get
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
+    var_dump($this->db);
     return $response->getBody()->write("Hello Robot");
 });
 
@@ -56,11 +57,15 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $message_text = $messaging_event["message"]["text"];
                     $this->logger->addDebug("$senderID $recipient_id $message_text");
 
+                    /** \Medoo\Meddo $this->db */
+                    $this->db->insert('log', ['uid' => $recipient_id, 'json' => $message_text]);
+
                     /** @var \GuzzleHttp\Psr7\Response $result */
                     $result = $this->sendApi->sendMessage($senderID, "Erről nem tudok, de:", null);
                     if ($result->getStatusCode() != 200) {
                         $this->logger->addDebug("Error:" . $result->getStatusCode() . " " . $result->getBody());
                     }
+
 
                     $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/" . $this->ai->parse($message_text);
                     $this->logger->addDebug($imgurl);
