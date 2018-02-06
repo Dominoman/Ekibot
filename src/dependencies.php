@@ -37,7 +37,8 @@ $container['db'] = function (\Slim\Container $c) {
         'server' => $dbpath['host'],
         'username' => $dbpath['user'],
         'password' => $dbpath['pass'],
-        'port' => $dbpath['port']
+        'port' => $dbpath['port'],
+        'logging' => true
     ));
     return $db;
 };

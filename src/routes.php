@@ -57,12 +57,12 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $senderID = $messaging_event["sender"]["id"];
                     $recipient_id = $messaging_event["recipient"]["id"];
                     $message_text = $messaging_event["message"]["text"];
-                    $this->logger->addDebug("$senderID $recipient_id $message_text");
+                    $this->logger->addDebug("xxx $senderID $recipient_id $message_text");
 
                     /** \Medoo\Meddo $this->db */
                     $this->db->insert('log', ['uid' => $recipient_id, 'json' => $message_text]);
                     $this->logger->addDebug($this->db->log());
-                    $this->db->insert('log', ['uid' => "xxxx", 'json' => "zzzz"]);
+                    echo "Hello";
                     /** @var \GuzzleHttp\Psr7\Response $result */
                     $result = $this->sendApi->sendMessage($senderID, "Erről nem tudok, de:", null);
                     if ($result->getStatusCode() != 200) {
