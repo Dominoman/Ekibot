@@ -15,6 +15,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 $app->get('/', function (Request $request, Response $response, array $args) {
     var_dump($this->db);
     $this->db->insert('log', ['uid' => "1234", 'json' => "5678"]);
+    var_dump($this->db->log());
     return $response->getBody()->write("Hello Robot");
 });
 
