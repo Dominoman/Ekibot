@@ -61,7 +61,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
 
                     /** \Medoo\Meddo $this->db */
                     $this->db->insert('log', ['uid' => $recipient_id, 'json' => $message_text]);
-
+                    $this->db->insert('log', ['uid' => "xxxx", 'json' => "zzzz"]);
                     /** @var \GuzzleHttp\Psr7\Response $result */
                     $result = $this->sendApi->sendMessage($senderID, "Erről nem tudok, de:", null);
                     if ($result->getStatusCode() != 200) {
