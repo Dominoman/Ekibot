@@ -60,7 +60,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $this->logger->addDebug("$senderID $recipient_id $message_text");
 
                     /** \Medoo\Meddo $this->db */
-                    $this->db->insert('log', ['uid' => $recipient_id, 'json' => $json, 'message' => $message_text, 'fullName' => ""]);
+                    $this->db->insert('log', ['uid' => $recipient_id, 'json' => $json->getContents(), 'message' => $message_text, 'fullName' => ""]);
                     $this->logger->addDebug(print_r($this->db->log(), true));
                     $this->logger->addDebug(print_r($this->db->error(), true));
 
