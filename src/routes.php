@@ -13,9 +13,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * Dummy get
  */
 $app->get('/', function (Request $request, Response $response, array $args) {
-    var_dump($this->db);
-    $this->db->insert('log', ['uid' => "1234", 'json' => "5678"]);
-    var_dump($this->db->log());
+    //$sendApi=$this->sendApi;
     return $response->getBody()->write("Hello Robot");
 });
 
@@ -61,6 +59,8 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
 
                         /* @var $this ->logger \Monolog\Logger */
                         $this->logger->addDebug("$senderID $recipient_id $message_text");
+
+                        $userdata = $this->sendApi->getUserData($senderID);
 
                         $this->db->insert('log', ['uid' => $senderID, 'json' => (string)$json, 'message' => $message_text, 'userdata' => ""]);
                         $this->logger->addDebug(print_r($this->db->log(), true));

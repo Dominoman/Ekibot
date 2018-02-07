@@ -17,9 +17,10 @@ $container['logger']=function (\Slim\Container $c){
 };
 
 $container['sendApi'] = function (\Slim\Container $c) {
+    $logger = $c->get('logger');
     $apiURL = $c->get('settings')['sendApi'];
     $pageToken = $c->get('settings')['pageToken'];
-    $sendApi = new \facebook\SendApi($apiURL, $pageToken);
+    $sendApi = new \facebook\SendApi($apiURL, $pageToken, $logger);
     return $sendApi;
 };
 
