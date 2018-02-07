@@ -47,43 +47,45 @@ $app->get('/ekibot', function (Request $request, Response $response, array $args
  * get message
  */
 $app->post('/ekibot', function (Request $request, Response $response, array $args) {
-    $json = $request->getBody();
-    $data = json_decode($json, true);
+    try {
+        $json = $request->getBody();
+        $data = json_decode($json, true);
 
-    if ($data['object'] == 'page') {
-        foreach ($data['entry'] as $entry) {
-            foreach ($entry['messaging'] as $messaging_event) {
-                if (isset($messaging_event['message'])) {
-                    $senderID = $messaging_event["sender"]["id"];
-                    $recipient_id = $messaging_event["recipient"]["id"];
-                    $message_text = $messaging_event["message"]["text"];
-                    $this->logger->addDebug("$senderID $recipient_id $message_text");
+        if ($data['object'] == 'page') {
+            foreach ($data['entry'] as $entry) {
+                foreach ($entry['messaging'] as $messaging_event) {
+                    if (isset($messaging_event['message'])) {
+                        $senderID = $messaging_event["sender"]["id"];
+                        $recipient_id = $messaging_event["recipient"]["id"];
+                        $message_text = $messaging_event["message"]["text"];
+                        $this->logger->addDebug("$senderID $recipient_id $message_text");
 
-                    echo "0";
-                    $user = $this->sendApi->getID($senderID);
-                    $this->logger->addDebug(print_r($user), true);
-                    /** \Medoo\Meddo $this->db */
-                    $this->db->insert('log', ['uid' => $senderID, 'json' => (string)$json, 'message' => $message_text, 'userdata' => ""]);
-                    $this->logger->addDebug(print_r($this->db->log(), true));
-                    $this->logger->addDebug(print_r($this->db->error(), true));
+                        /** \Medoo\Meddo $this->db */
+                        $this->db->insert('log', ['uid' => $senderID, 'json' => (string)$json, 'message' => $message_text, 'userdata' => ""]);
+                        $this->logger->addDebug(print_r($this->db->log(), true));
+                        $this->logger->addDebug(print_r($this->db->error(), true));
 
-                    /** @var \GuzzleHttp\Psr7\Response $result */
-                    $result = $this->sendApi->sendMessage($senderID, "Erről nem tudok, de:", null);
-                    if ($result->getStatusCode() != 200) {
-                        $this->logger->addError("Error:" . $result->getStatusCode() . " " . $result->getBody());
-                    }
+                        /** @var \GuzzleHttp\Psr7\Response $result */
+                        $result = $this->sendApi->sendMessage($senderID, "Erről nem tudok, de:", null);
+                        if ($result->getStatusCode() != 200) {
+                            $this->logger->addError("Error:" . $result->getStatusCode() . " " . $result->getBody());
+                        }
 
+                        $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/" . $this->ai->parse($message_text);
+                        $this->logger->addDebug($imgurl);
 
-                    $imgurl = "https://" . $_SERVER["SERVER_NAME"] . "/images/" . $this->ai->parse($message_text);
-                    $this->logger->addDebug($imgurl);
-
-                    $result = $this->sendApi->sendMessage($senderID, null, $imgurl);
-                    if ($result->getStatusCode() != 200) {
-                        $this->logger->addError("Error:" . $result->getStatusCode() . " " . $result->getBody());
+                        $result = $this->sendApi->sendMessage($senderID, null, $imgurl);
+                        if ($result->getStatusCode() != 200) {
+                            $this->logger->addError("Error:" . $result->getStatusCode() . " " . $result->getBody());
+                        }
                     }
                 }
             }
         }
+        return $response->withStatus(200)->getBody()->write("ok");
+    } catch (Exception $e) {
+        $this->logger->addDebug($e->getMessage());
+        $this->logger->addDebug($e->getTraceAsString());
     }
-    return $response->withStatus(200)->getBody()->write("ok");
+
 });

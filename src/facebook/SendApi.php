@@ -77,14 +77,11 @@ class SendApi {
      * @return array
      */
     public function getID(string $user_id) {
-        echo "1";
         $client = new Client();
-        echo "2";
         $result = $client->request('GET', $this->url . $user_id, [
             'query' => ["fields" => "first_name,last_name,profile_pic,gender",
                 'access_token' => $this->pageToken]
         ]);
-        echo "3";
         return json_decode($result->getBody(), true);
     }
 }
