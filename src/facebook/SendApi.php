@@ -83,22 +83,18 @@ class SendApi {
      * @return array
      */
     public function getUserData(string $user_id) {
-        $this->addDebug("0");
         $client = new Client();
-        $this->addDebug("1");
         $result = $client->request('GET', $this->url . $user_id, [
             'query' => ["fields" => "first_name,last_name,profile_pic,gender",
                 'access_token' => $this->pageToken]
         ]);
-        $this->addDebug("2");
         return json_decode($result->getBody(), true);
-        $this->addDebug("3");
     }
 
     /**
      * @param string $message
      */
     private function addDebug(string $message): void {
-        $this->logger->addDebug($message);
+        if ($this->logger !== null) $this->logger->addDebug($message);
     }
 }

@@ -61,6 +61,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                         $this->logger->addDebug("$senderID $recipient_id $message_text");
 
                         $userdata = $this->sendApi->getUserData($senderID);
+                        $this->logger->addDebug(print_r($userdata, true));
 
                         $this->db->insert('log', ['uid' => $senderID, 'json' => (string)$json, 'message' => $message_text, 'userdata' => ""]);
                         $this->logger->addDebug(print_r($this->db->log(), true));
