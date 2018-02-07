@@ -57,17 +57,17 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $senderID = $messaging_event["sender"]["id"];
                     $recipient_id = $messaging_event["recipient"]["id"];
                     $message_text = $messaging_event["message"]["text"];
-                    $this->logger->addDebug("xxx $senderID $recipient_id $message_text");
+                    $this->logger->addDebug("$senderID $recipient_id $message_text");
 
                     /** \Medoo\Meddo $this->db */
-                    $this->db->insert('log', ['uid' => $recipient_id, 'json' => $json, 'message' => $message_text]);
+                    $this->db->insert('log', ['uid' => $recipient_id, 'json' => $json, 'message' => $message_text, 'fullName' => ""]);
                     $this->logger->addDebug(print_r($this->db->log(), true));
                     $this->logger->addDebug(print_r($this->db->error(), true));
 
                     /** @var \GuzzleHttp\Psr7\Response $result */
                     $result = $this->sendApi->sendMessage($senderID, "Erről nem tudok, de:", null);
                     if ($result->getStatusCode() != 200) {
-                        $this->logger->addDebug("Error:" . $result->getStatusCode() . " " . $result->getBody());
+                        $this->logger->addError("Error:" . $result->getStatusCode() . " " . $result->getBody());
                     }
 
 
@@ -76,7 +76,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
 
                     $result = $this->sendApi->sendMessage($senderID, null, $imgurl);
                     if ($result->getStatusCode() != 200) {
-                        $this->logger->addDebug("Error:" . $result->getStatusCode() . " " . $result->getBody());
+                        $this->logger->addError("Error:" . $result->getStatusCode() . " " . $result->getBody());
                     }
                 }
             }
