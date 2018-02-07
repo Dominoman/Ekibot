@@ -76,7 +76,7 @@ class SendApi {
      * @param string $user_id
      * @return array
      */
-    public function getID(string $user_id) {
+    public function getUserData(string $user_id) {
         $client = new Client();
         $result = $client->request('GET', $this->url . $user_id, [
             'query' => ["fields" => "first_name,last_name,profile_pic,gender",
