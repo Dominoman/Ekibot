@@ -73,15 +73,18 @@ class SendApi {
     }
 
     /**
-     * @param string $recipient_id
+     * @param string $user_id
      * @return array
      */
-    public function getID(string $recipient_id) {
+    public function getID(string $user_id) {
+        echo "1";
         $client = new Client();
-        $result = $client->request('GET', $this->url . $recipient_id, [
+        echo "2";
+        $result = $client->request('GET', $this->url . $user_id, [
             'query' => ["fields" => "first_name,last_name,profile_pic,gender",
                 'access_token' => $this->pageToken]
         ]);
+        echo "3";
         return json_decode($result->getBody(), true);
     }
 }

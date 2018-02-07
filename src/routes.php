@@ -59,6 +59,7 @@ $app->post('/ekibot', function (Request $request, Response $response, array $arg
                     $message_text = $messaging_event["message"]["text"];
                     $this->logger->addDebug("$senderID $recipient_id $message_text");
 
+                    echo "0";
                     $user = $this->sendApi->getID($senderID);
                     $this->logger->addDebug(print_r($user), true);
                     /** \Medoo\Meddo $this->db */
